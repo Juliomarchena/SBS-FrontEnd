@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBS Escucha Social · MICROHELP</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #04080F;
+    --bg2: #080E1A;
+    --surface: #0D1525;
+    --surface2: #111D30;
+    --border: #1A2E4A;
+    --gold: #C8973A;
+    --gold2: #E8B84B;
+    --blue: #2D6BE4;
+    --blue2: #4A85F5;
+    --red: #E05252;
+    --green: #3DBE7A;
+    --yellow: #E8C84A;
+    --text: #E8EDF5;
+    --muted: #6B7FA0;
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:var(--font-body); min-height:100vh; overflow-x:hidden; }
+
+  header {
+    background: linear-gradient(135deg, #04080F 0%, #080E1A 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+    position: sticky; top:0; z-index:100;
+    backdrop-filter: blur(10px);
+  }
+  .logo { display:flex; align-items:center; gap:12px; }
+  .logo-icon { width:36px; height:36px; border-radius:8px; background: linear-gradient(135deg, var(--gold), var(--blue)); display:flex; align-items:center; justify-content:center; font-size:16px; }
+  .logo-text { font-family:var(--font-head); font-weight:800; font-size:15px; letter-spacing:0.5px; }
+  .logo-sub { font-family:var(--font-mono); font-size:10px; color:var(--gold); letter-spacing:2px; }
+  .header-right { display:flex; align-items:center; gap:16px; }
+  .badge-live { display:flex; align-items:center; gap:6px; background: rgba(61,190,122,0.1); border:1px solid rgba(61,190,122,0.3); border-radius:20px; padding:4px 12px; font-family:var(--font-mono); font-size:10px; color:var(--green); letter-spacing:1px; }
+  .dot-live { width:6px; height:6px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .version { font-family:var(--font-mono); font-size:10px; color:var(--muted); }
+
+  main { max-width:1200px; margin:0 auto; padding:40px 24px; }
+
+  .search-section { background: var(--surface); border: 1px solid var(--border); border-radius:16px; padding:32px; margin-bottom:32px; position:relative; overflow:hidden; }
+  .search-section::before { content:''; position:absolute; top:-60px; right:-60px; width:200px; height:200px; border-radius:50%; background: radial-gradient(circle, rgba(200,151,58,0.08) 0%, transparent 70%); pointer-events:none; }
+  .search-title { font-family:var(--font-head); font-size:22px; font-weight:800; margin-bottom:6px; }
+  .search-subtitle { color:var(--muted); font-size:13px; margin-bottom:24px; }
+  .search-row { display:flex; gap:12px; flex-wrap:wrap; }
+  .empresa-select { flex:1; min-width:200px; background:var(--bg2); border:1px solid var(--border); color:var(--text); font-family:var(--font-body); font-size:14px; padding:12px 16px; border-radius:10px; outline:none; cursor:pointer; transition:border-color 0.2s; }
+  .empresa-select:focus { border-color:var(--gold); }
+  .input-num { width:120px; background:var(--bg2); border:1px solid var(--border); color:var(--text); font-family:var(--font-mono); font-size:13px; padding:12px 16px; border-radius:10px; outline:none; transition:border-color 0.2s; }
+  .input-num:focus { border-color:var(--gold); }
+  .btn-analizar { background: linear-gradient(135deg, var(--gold), var(--gold2)); color:#000; font-family:var(--font-head); font-weight:700; font-size:13px; border:none; padding:12px 28px; border-radius:10px; cursor:pointer; letter-spacing:0.5px; transition:all 0.2s; white-space:nowrap; }
+  .btn-analizar:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(200,151,58,0.3); }
+  .btn-analizar:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+  .empresa-chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+  .chip { background:var(--bg2); border:1px solid var(--border); border-radius:20px; padding:4px 14px; font-size:11px; font-family:var(--font-mono); color:var(--muted); cursor:pointer; transition:all 0.2s; }
+  .chip:hover { border-color:var(--gold); color:var(--gold); }
+
+  #loading { display:none; text-align:center; padding:60px 0; }
+  .spinner { width:40px; height:40px; border-radius:50%; border:3px solid var(--border); border-top-color:var(--gold); animation:spin 0.8s linear infinite; margin:0 auto 16px; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+  .loading-text { font-family:var(--font-mono); font-size:12px; color:var(--muted); letter-spacing:1px; }
+
+  #results { display:none; }
+
+  .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:16px; margin-bottom:24px; }
+  .kpi-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; position:relative; overflow:hidden; animation: fadeUp 0.4s ease both; }
+  .kpi-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; }
+  .kpi-card.alerta-alto::after { background:var(--red); }
+  .kpi-card.alerta-medio::after { background:var(--yellow); }
+  .kpi-card.alerta-bajo::after { background:var(--green); }
+  .kpi-card.accent-blue::after { background:var(--blue); }
+  .kpi-card.accent-gold::after { background:var(--gold); }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  .kpi-label { font-family:var(--font-mono); font-size:10px; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; }
+  .kpi-value { font-family:var(--font-head); font-size:32px; font-weight:800; line-height:1; }
+  .kpi-sub { font-size:11px; color:var(--muted); margin-top:4px; }
+  .kpi-value.red { color:var(--red); }
+  .kpi-value.green { color:var(--green); }
+  .kpi-value.yellow { color:var(--yellow); }
+  .kpi-value.gold { color:var(--gold); }
+  .kpi-value.blue { color:var(--blue2); }
+
+  .alert-banner { border-radius:12px; padding:16px 20px; display:flex; align-items:center; gap:12px; margin-bottom:24px; font-weight:500; animation: fadeUp 0.4s 0.1s ease both; }
+  .alert-banner.alto { background:rgba(224,82,82,0.1); border:1px solid rgba(224,82,82,0.3); color:var(--red); }
+  .alert-banner.medio { background:rgba(232,200,74,0.1); border:1px solid rgba(232,200,74,0.3); color:var(--yellow); }
+  .alert-banner.bajo { background:rgba(61,190,122,0.1); border:1px solid rgba(61,190,122,0.3); color:var(--green); }
+  .alert-icon { font-size:20px; }
+  .alert-text { flex:1; }
+  .alert-title { font-family:var(--font-head); font-weight:700; font-size:14px; }
+  .alert-detail { font-size:12px; opacity:0.8; margin-top:2px; }
+
+  .section-title { font-family:var(--font-head); font-size:16px; font-weight:700; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+  .section-title span { font-family:var(--font-mono); font-size:11px; color:var(--muted); font-weight:400; }
+  .noticias-grid { display:flex; flex-direction:column; gap:12px; margin-bottom:32px; }
+  .noticia-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; display:grid; grid-template-columns:1fr auto; gap:16px; align-items:start; animation: fadeUp 0.4s ease both; transition: background 0.2s; }
+  .noticia-card:hover { background:var(--surface2); }
+  .noticia-card.negativo { border-left:3px solid var(--red); }
+  .noticia-card.positivo { border-left:3px solid var(--green); }
+  .noticia-card.neutral  { border-left:3px solid var(--muted); }
+  .noticia-titulo { font-size:14px; font-weight:500; margin-bottom:8px; line-height:1.5; }
+  .noticia-meta { display:flex; gap:12px; flex-wrap:wrap; }
+  .meta-item { font-family:var(--font-mono); font-size:10px; color:var(--muted); display:flex; align-items:center; gap:4px; }
+  .noticia-razon { font-size:12px; color:var(--muted); margin-top:8px; font-style:italic; padding:8px 12px; background:var(--bg2); border-radius:6px; }
+  .noticia-right { display:flex; flex-direction:column; align-items:flex-end; gap:8px; min-width:100px; }
+  .badge-sent { font-family:var(--font-mono); font-size:10px; font-weight:500; padding:4px 10px; border-radius:20px; letter-spacing:0.5px; }
+  .badge-sent.negativo { background:rgba(224,82,82,0.15); color:var(--red); border:1px solid rgba(224,82,82,0.3); }
+  .badge-sent.positivo { background:rgba(61,190,122,0.15); color:var(--green); border:1px solid rgba(61,190,122,0.3); }
+  .badge-sent.neutral  { background:rgba(107,127,160,0.15); color:var(--muted); border:1px solid rgba(107,127,160,0.3); }
+  .score-display { text-align:right; }
+  .score-num { font-family:var(--font-head); font-size:24px; font-weight:800; }
+  .score-num.alto { color:var(--red); }
+  .score-num.medio { color:var(--yellow); }
+  .score-num.bajo { color:var(--green); }
+  .score-label { font-family:var(--font-mono); font-size:9px; color:var(--muted); letter-spacing:1px; }
+  .cat-badge { font-family:var(--font-mono); font-size:9px; padding:2px 8px; border-radius:4px; letter-spacing:0.5px; }
+  .cat-badge.prensa      { background:rgba(45,107,228,0.15); color:var(--blue2); }
+  .cat-badge.bvl         { background:rgba(200,151,58,0.15); color:var(--gold); }
+  .cat-badge.regulatorio { background:rgba(224,82,82,0.15); color:var(--red); }
+
+  #error-box { display:none; background:rgba(224,82,82,0.1); border:1px solid rgba(224,82,82,0.3); border-radius:12px; padding:20px; color:var(--red); margin-top:16px; font-size:13px; }
+  .footer { text-align:center; padding:32px 0 16px; font-family:var(--font-mono); font-size:10px; color:var(--muted); letter-spacing:1px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">📡</div>
+    <div>
+      <div class="logo-text">SBS Escucha Social</div>
+      <div class="logo-sub">MICROHELP · v4.0</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="badge-live"><div class="dot-live"></div>API ACTIVA</div>
+    <div class="version">RSS → Claude</div>
+  </div>
+</header>
+
+<main>
+  <div class="search-section">
+    <div class="search-title">Análisis de Sentimiento Financiero</div>
+    <div class="search-subtitle">Monitoreo de prensa, BVL y regulatorio SBS/SMV en tiempo real</div>
+    <div class="search-row">
+      <select class="empresa-select" id="empresaSelect">
+        <option value="">— Selecciona una empresa —</option>
+        <option value="bcp">BCP — Banco de Crédito</option>
+        <option value="credicorp">Credicorp</option>
+        <option value="interbank">Interbank</option>
+        <option value="bbva">BBVA Perú</option>
+        <option value="scotiabank">Scotiabank Perú</option>
+        <option value="mibanco">Mibanco</option>
+        <option value="rimac">Rímac Seguros</option>
+        <option value="pacifico">Pacífico Seguros</option>
+        <option value="prima afp">Prima AFP</option>
+        <option value="integra afp">Integra AFP</option>
+        <option value="alicorp">Alicorp</option>
+        <option value="ferreycorp">Ferreycorp</option>
+        <option value="banbif">BanBif</option>
+        <option value="caja piura">Caja Piura</option>
+        <option value="caja huancayo">Caja Huancayo</option>
+      </select>
+      <input class="input-num" type="number" id="maxArticulos" value="5" min="1" max="20" title="Máx. artículos">
+      <button class="btn-analizar" id="btnAnalizar" onclick="analizar()">▶ ANALIZAR</button>
+    </div>
+    <div class="empresa-chips">
+      <div class="chip" onclick="quickSelect('bcp')">BCP</div>
+      <div class="chip" onclick="quickSelect('credicorp')">Credicorp</div>
+      <div class="chip" onclick="quickSelect('interbank')">Interbank</div>
+      <div class="chip" onclick="quickSelect('bbva')">BBVA</div>
+      <div class="chip" onclick="quickSelect('rimac')">Rímac</div>
+      <div class="chip" onclick="quickSelect('alicorp')">Alicorp</div>
+    </div>
+  </div>
+
+  <div id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">CONSULTANDO RSS + ANALIZANDO CON CLAUDE...</div>
+  </div>
+  <div id="error-box"></div>
+  <div id="results"></div>
+</main>
+
+<div class="footer">MICROHELP © 2026 · SBS ESCUCHA SOCIAL · DATOS EN TIEMPO REAL</div>
+
+<script>
+const API = 'https://sbs-escucha-social-3.onrender.com';
+
+function quickSelect(e) { document.getElementById('empresaSelect').value = e; }
+
+function scoreClass(s) { return s >= 40 ? 'alto' : s >= 15 ? 'medio' : 'bajo'; }
+
+function alertInfo(nivel) {
+  if (nivel==='ALTO')  return {cls:'alto',  icon:'🔴', title:'ALERTA ALTA',  msg:'Se detectaron noticias de alto riesgo regulatorio o financiero.'};
+  if (nivel==='MEDIO') return {cls:'medio', icon:'🟡', title:'ALERTA MEDIA', msg:'Situación bajo monitoreo. Riesgo moderado detectado.'};
+  return {cls:'bajo', icon:'🟢', title:'NIVEL BAJO', msg:'Sin eventos críticos detectados en el período analizado.'};
+}
+
+async function analizar() {
+  const empresa = document.getElementById('empresaSelect').value;
+  const max = parseInt(document.getElementById('maxArticulos').value) || 5;
+  if (!empresa) { alert('Selecciona una empresa primero.'); return; }
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('error-box').style.display = 'none';
+  document.getElementById('btnAnalizar').disabled = true;
+  try {
+    const res = await fetch(`${API}/analizar-empresa`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({empresa, max_articulos:max, ventana_contexto:300})
+    });
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+    renderResults(await res.json());
+  } catch(e) {
+    document.getElementById('error-box').style.display = 'block';
+    document.getElementById('error-box').innerHTML = `⚠️ Error: ${e.message}. El servicio puede estar iniciando (espera 50s y reintenta).`;
+  } finally {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('btnAnalizar').disabled = false;
+  }
+}
+
+function renderResults(d) {
+  const a = alertInfo(d.nivel_alerta);
+  const sc = scoreClass(d.score_riesgo_promedio);
+  let html = `
+    <div class="kpi-grid">
+      <div class="kpi-card ${a.cls==='alto'?'alerta-alto':a.cls==='medio'?'alerta-medio':'alerta-bajo'}" style="animation-delay:0s">
+        <div class="kpi-label">Nivel de Alerta</div>
+        <div class="kpi-value ${a.cls==='alto'?'red':a.cls==='medio'?'yellow':'green'}">${d.nivel_alerta}</div>
+        <div class="kpi-sub">${d.fecha_analisis}</div>
+      </div>
+      <div class="kpi-card accent-gold" style="animation-delay:0.05s">
+        <div class="kpi-label">Score Riesgo Prom.</div>
+        <div class="kpi-value ${sc==='alto'?'red':sc==='medio'?'yellow':'green'}">${d.score_riesgo_promedio}</div>
+        <div class="kpi-sub">escala 0–100</div>
+      </div>
+      <div class="kpi-card accent-blue" style="animation-delay:0.1s">
+        <div class="kpi-label">Total Menciones</div>
+        <div class="kpi-value blue">${d.total_menciones}</div>
+        <div class="kpi-sub">noticias analizadas</div>
+      </div>
+      <div class="kpi-card" style="animation-delay:0.15s">
+        <div class="kpi-label">Negativas</div>
+        <div class="kpi-value red">${d.noticias_negativas}</div>
+        <div class="kpi-sub">de ${d.total_menciones} noticias</div>
+      </div>
+      <div class="kpi-card" style="animation-delay:0.2s">
+        <div class="kpi-label">Positivas</div>
+        <div class="kpi-value green">${d.noticias_positivas}</div>
+        <div class="kpi-sub">de ${d.total_menciones} noticias</div>
+      </div>
+      <div class="kpi-card" style="animation-delay:0.25s">
+        <div class="kpi-label">Analizadas Claude</div>
+        <div class="kpi-value gold">${d.escaladas_claude}</div>
+        <div class="kpi-sub">100% cobertura</div>
+      </div>
+    </div>
+    <div class="alert-banner ${a.cls}">
+      <div class="alert-icon">${a.icon}</div>
+      <div class="alert-text">
+        <div class="alert-title">${a.title} — ${d.empresa.toUpperCase()}</div>
+        <div class="alert-detail">${a.msg} Fuentes: ${d.fuentes_consultadas.join(', ')}</div>
+      </div>
+    </div>
+    <div class="section-title">Noticias Detectadas <span>${d.noticias.length} resultados</span></div>
+    <div class="noticias-grid">`;
+
+  d.noticias.forEach((n,i) => {
+    const s = n.sentimiento.toLowerCase();
+    const sc2 = scoreClass(n.score_riesgo);
+    html += `
+      <div class="noticia-card ${s}" style="animation-delay:${0.1+i*0.05}s">
+        <div>
+          <div class="noticia-titulo">${n.titulo}</div>
+          <div class="noticia-meta">
+            <span class="meta-item">📰 ${n.fuente}</span>
+            <span class="meta-item">📅 ${n.fecha}</span>
+            <span class="meta-item cat-badge ${n.categoria}">${n.categoria.toUpperCase()}</span>
+            <span class="meta-item">🤖 ${n.analizado_por}</span>
+          </div>
+          ${n.razon_claude?`<div class="noticia-razon">💬 ${n.razon_claude}</div>`:''}
+        </div>
+        <div class="noticia-right">
+          <span class="badge-sent ${s}">${n.sentimiento}</span>
+          <div class="score-display">
+            <div class="score-num ${sc2}">${n.score_riesgo}</div>
+            <div class="score-label">RIESGO</div>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  html += `</div>`;
+  document.getElementById('results').innerHTML = html;
+  document.getElementById('results').style.display = 'block';
+}
+</script>
+</body>
+</html>
