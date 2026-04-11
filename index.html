@@ -6,19 +6,13 @@
 <title>SBS Escucha Social · MICROHELP</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:#04080F;--bg2:#080E1A;--surface:#0D1525;--surface2:#111D30;
-    --border:#1A2E4A;--gold:#C8973A;--gold2:#E8B84B;--blue:#2D6BE4;
-    --blue2:#4A85F5;--red:#E05252;--green:#3DBE7A;--yellow:#E8C84A;
-    --text:#E8EDF5;--muted:#6B7FA0;
-    --font-head:'Syne',sans-serif;--font-mono:'DM Mono',monospace;--font-body:'DM Sans',sans-serif;
-  }
+  :root{--bg:#04080F;--bg2:#080E1A;--surface:#0D1525;--surface2:#111D30;--border:#1A2E4A;--gold:#C8973A;--gold2:#E8B84B;--blue:#2D6BE4;--blue2:#4A85F5;--red:#E05252;--green:#3DBE7A;--yellow:#E8C84A;--text:#E8EDF5;--muted:#6B7FA0;--font-head:'Syne',sans-serif;--font-mono:'DM Mono',monospace;--font-body:'DM Sans',sans-serif;}
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;}
   header{background:linear-gradient(135deg,#04080F,#080E1A);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
   .logo{display:flex;align-items:center;gap:12px;}
   .logo-icon{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--gold),var(--blue));display:flex;align-items:center;justify-content:center;font-size:16px;}
-  .logo-text{font-family:var(--font-head);font-weight:800;font-size:15px;letter-spacing:0.5px;}
+  .logo-text{font-family:var(--font-head);font-weight:800;font-size:15px;}
   .logo-sub{font-family:var(--font-mono);font-size:10px;color:var(--gold);letter-spacing:2px;}
   .header-right{display:flex;align-items:center;gap:16px;}
   .badge-live{display:flex;align-items:center;gap:6px;background:rgba(61,190,122,0.1);border:1px solid rgba(61,190,122,0.3);border-radius:20px;padding:4px 12px;font-family:var(--font-mono);font-size:10px;color:var(--green);letter-spacing:1px;}
@@ -30,13 +24,10 @@
   .search-section::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,151,58,0.08),transparent 70%);pointer-events:none;}
   .search-title{font-family:var(--font-head);font-size:22px;font-weight:800;margin-bottom:6px;}
   .search-subtitle{color:var(--muted);font-size:13px;margin-bottom:20px;}
-
-  /* TABS */
   .tab-row{display:flex;gap:8px;margin-bottom:16px;}
   .tab-btn{font-family:var(--font-mono);font-size:11px;padding:6px 18px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;}
   .tab-btn.active{background:var(--gold);color:#000;border-color:var(--gold);font-weight:700;}
   .tab-panel{display:none;}.tab-panel.active{display:block;}
-
   .search-row{display:flex;gap:12px;flex-wrap:wrap;}
   .empresa-select{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:var(--font-body);font-size:14px;padding:12px 16px;border-radius:10px;outline:none;cursor:pointer;transition:border-color 0.2s;}
   .empresa-select:focus{border-color:var(--gold);}
@@ -44,15 +35,13 @@
   .input-libre:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(200,151,58,0.15);}
   .input-libre::placeholder{color:var(--muted);}
   .hint-libre{font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-top:8px;letter-spacing:0.5px;}
-  .input-num{width:110px;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:13px;padding:12px 16px;border-radius:10px;outline:none;transition:border-color 0.2s;}
-  .input-num:focus{border-color:var(--gold);}
+  .input-num{width:110px;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:13px;padding:12px 16px;border-radius:10px;outline:none;}
   .btn-analizar{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;font-family:var(--font-head);font-weight:700;font-size:13px;border:none;padding:12px 28px;border-radius:10px;cursor:pointer;letter-spacing:0.5px;transition:all 0.2s;white-space:nowrap;}
   .btn-analizar:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(200,151,58,0.3);}
   .btn-analizar:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
   .empresa-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
   .chip{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:4px 14px;font-size:11px;font-family:var(--font-mono);color:var(--muted);cursor:pointer;transition:all 0.2s;}
   .chip:hover{border-color:var(--gold);color:var(--gold);}
-
   #loading{display:none;text-align:center;padding:60px 0;}
   .spinner{width:40px;height:40px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--gold);animation:spin 0.8s linear infinite;margin:0 auto 16px;}
   @keyframes spin{to{transform:rotate(360deg)}}
@@ -71,26 +60,37 @@
   .kpi-value{font-family:var(--font-head);font-size:32px;font-weight:800;line-height:1;}
   .kpi-sub{font-size:11px;color:var(--muted);margin-top:4px;}
   .kpi-value.red{color:var(--red);}.kpi-value.green{color:var(--green);}.kpi-value.yellow{color:var(--yellow);}.kpi-value.gold{color:var(--gold);}.kpi-value.blue{color:var(--blue2);}
-  .alert-banner{border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:12px;margin-bottom:24px;font-weight:500;animation:fadeUp 0.4s 0.1s ease both;}
+  .alert-banner{border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:12px;margin-bottom:24px;animation:fadeUp 0.4s 0.1s ease both;}
   .alert-banner.alto{background:rgba(224,82,82,0.1);border:1px solid rgba(224,82,82,0.3);color:var(--red);}
   .alert-banner.medio{background:rgba(232,200,74,0.1);border:1px solid rgba(232,200,74,0.3);color:var(--yellow);}
   .alert-banner.bajo{background:rgba(61,190,122,0.1);border:1px solid rgba(61,190,122,0.3);color:var(--green);}
   .alert-icon{font-size:20px;}.alert-text{flex:1;}
   .alert-title{font-family:var(--font-head);font-weight:700;font-size:14px;}
   .alert-detail{font-size:12px;opacity:0.8;margin-top:2px;}
+
+  /* DESCARGA */
+  .download-bar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
+  .download-bar-label{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:1px;}
+  .btn-dl{display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:8px;font-family:var(--font-mono);font-size:11px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s;letter-spacing:0.5px;}
+  .btn-dl.csv{background:rgba(61,190,122,0.15);color:var(--green);border:1px solid rgba(61,190,122,0.3);}
+  .btn-dl.csv:hover{background:rgba(61,190,122,0.3);}
+  .btn-dl.pdf{background:rgba(200,151,58,0.15);color:var(--gold);border:1px solid rgba(200,151,58,0.3);}
+  .btn-dl.pdf:hover{background:rgba(200,151,58,0.3);}
+
   .section-title{font-family:var(--font-head);font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
   .section-title span{font-family:var(--font-mono);font-size:11px;color:var(--muted);font-weight:400;}
   .noticias-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
-  .noticia-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;animation:fadeUp 0.4s ease both;transition:background 0.2s;}
+  .noticia-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;animation:fadeUp 0.4s ease both;transition:background 0.2s;}
   .noticia-card:hover{background:var(--surface2);}
   .noticia-card.negativo{border-left:3px solid var(--red);}
   .noticia-card.positivo{border-left:3px solid var(--green);}
   .noticia-card.neutral{border-left:3px solid var(--muted);}
+  .noticia-top{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;}
   .noticia-titulo{font-size:14px;font-weight:500;margin-bottom:8px;line-height:1.5;}
   .noticia-meta{display:flex;gap:12px;flex-wrap:wrap;}
-  .meta-item{font-family:var(--font-mono);font-size:10px;color:var(--muted);display:flex;align-items:center;gap:4px;}
-  .noticia-razon{font-size:12px;color:var(--muted);margin-top:8px;font-style:italic;padding:8px 12px;background:var(--bg2);border-radius:6px;}
-  .noticia-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;min-width:100px;}
+  .meta-item{font-family:var(--font-mono);font-size:10px;color:var(--muted);}
+  .noticia-razon{font-size:12px;color:var(--muted);margin-top:10px;font-style:italic;padding:8px 12px;background:var(--bg2);border-radius:6px;}
+  .noticia-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;min-width:110px;}
   .badge-sent{font-family:var(--font-mono);font-size:10px;font-weight:500;padding:4px 10px;border-radius:20px;letter-spacing:0.5px;}
   .badge-sent.negativo{background:rgba(224,82,82,0.15);color:var(--red);border:1px solid rgba(224,82,82,0.3);}
   .badge-sent.positivo{background:rgba(61,190,122,0.15);color:var(--green);border:1px solid rgba(61,190,122,0.3);}
@@ -99,10 +99,23 @@
   .score-num{font-family:var(--font-head);font-size:24px;font-weight:800;}
   .score-num.alto{color:var(--red);}.score-num.medio{color:var(--yellow);}.score-num.bajo{color:var(--green);}
   .score-label{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:1px;}
-  .cat-badge{font-family:var(--font-mono);font-size:9px;padding:2px 8px;border-radius:4px;letter-spacing:0.5px;}
+  .cat-badge{font-family:var(--font-mono);font-size:9px;padding:2px 8px;border-radius:4px;}
   .cat-badge.prensa{background:rgba(45,107,228,0.15);color:var(--blue2);}
   .cat-badge.bvl{background:rgba(200,151,58,0.15);color:var(--gold);}
   .cat-badge.regulatorio{background:rgba(224,82,82,0.15);color:var(--red);}
+
+  /* EXPANDIBLE */
+  .noticia-expand{margin-top:12px;border-top:1px solid var(--border);padding-top:12px;display:none;}
+  .noticia-expand.open{display:block;}
+  .expand-tabs{display:flex;gap:6px;margin-bottom:10px;}
+  .etab{font-family:var(--font-mono);font-size:10px;padding:4px 12px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;}
+  .etab.active{background:var(--surface2);color:var(--text);border-color:var(--gold);}
+  .epanel{display:none;font-size:12px;line-height:1.7;color:#B0BCCF;}
+  .epanel.active{display:block;}
+  .epanel-loading{font-family:var(--font-mono);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px;}
+  .mini-spin{width:12px;height:12px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}
+  .btn-expand{margin-top:10px;font-family:var(--font-mono);font-size:10px;color:var(--gold);background:none;border:none;cursor:pointer;letter-spacing:0.5px;padding:0;text-decoration:underline;}
+
   #error-box{display:none;background:rgba(224,82,82,0.1);border:1px solid rgba(224,82,82,0.3);border-radius:12px;padding:20px;color:var(--red);margin-top:16px;font-size:13px;}
   .footer{text-align:center;padding:32px 0 16px;font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;}
 </style>
@@ -127,14 +140,10 @@
   <div class="search-section">
     <div class="search-title">Análisis de Sentimiento Financiero</div>
     <div class="search-subtitle">Monitoreo de prensa, BVL y regulatorio SBS/SMV en tiempo real</div>
-
-    <!-- TABS -->
     <div class="tab-row">
       <button class="tab-btn active" onclick="switchTab('lista')">📋 Lista predefinida</button>
       <button class="tab-btn" onclick="switchTab('libre')">✏️ Empresa libre</button>
     </div>
-
-    <!-- TAB: LISTA -->
     <div class="tab-panel active" id="tab-lista">
       <div class="search-row">
         <select class="empresa-select" id="empresaSelect">
@@ -167,8 +176,6 @@
         <div class="chip" onclick="quickSelect('alicorp')">Alicorp</div>
       </div>
     </div>
-
-    <!-- TAB: LIBRE -->
     <div class="tab-panel" id="tab-libre">
       <div class="search-row">
         <input class="input-libre" type="text" id="empresaLibre" placeholder="Ej: Banco Pichincha, Financiera Oh, Cencosud..." maxlength="60">
@@ -179,10 +186,7 @@
     </div>
   </div>
 
-  <div id="loading">
-    <div class="spinner"></div>
-    <div class="loading-text">CONSULTANDO RSS + ANALIZANDO CON CLAUDE...</div>
-  </div>
+  <div id="loading"><div class="spinner"></div><div class="loading-text">CONSULTANDO RSS + ANALIZANDO CON CLAUDE...</div></div>
   <div id="error-box"></div>
   <div id="results"></div>
 </main>
@@ -191,63 +195,161 @@
 
 <script>
 const API = 'https://sbs-escucha-social-3.onrender.com';
-let modoActivo = 'lista';
+let globalData = null;
 
 function switchTab(tab) {
-  modoActivo = tab;
-  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0&&tab==='lista')||(i===1&&tab==='libre')));
-  document.getElementById('tab-lista').classList.toggle('active', tab==='lista');
-  document.getElementById('tab-libre').classList.toggle('active', tab==='libre');
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&tab==='lista')||(i===1&&tab==='libre')));
+  document.getElementById('tab-lista').classList.toggle('active',tab==='lista');
+  document.getElementById('tab-libre').classList.toggle('active',tab==='libre');
 }
-
-function quickSelect(e) { document.getElementById('empresaSelect').value = e; }
-function scoreClass(s) { return s>=40?'alto':s>=15?'medio':'bajo'; }
-function alertInfo(nivel) {
+function quickSelect(e){document.getElementById('empresaSelect').value=e;}
+function scoreClass(s){return s>=40?'alto':s>=15?'medio':'bajo';}
+function alertInfo(nivel){
   if(nivel==='ALTO')  return{cls:'alto', icon:'🔴',title:'ALERTA ALTA', msg:'Se detectaron noticias de alto riesgo regulatorio o financiero.'};
   if(nivel==='MEDIO') return{cls:'medio',icon:'🟡',title:'ALERTA MEDIA',msg:'Situación bajo monitoreo. Riesgo moderado detectado.'};
   return{cls:'bajo',icon:'🟢',title:'NIVEL BAJO',msg:'Sin eventos críticos detectados en el período analizado.'};
 }
-
-function setLoading(on) {
-  document.getElementById('loading').style.display = on?'block':'none';
-  document.getElementById('results').style.display = on?'none': document.getElementById('results').innerHTML?'block':'none';
-  document.getElementById('error-box').style.display = 'none';
+function setLoading(on){
+  document.getElementById('loading').style.display=on?'block':'none';
+  document.getElementById('error-box').style.display='none';
   document.querySelectorAll('.btn-analizar').forEach(b=>b.disabled=on);
 }
-
-async function analizar() {
-  const empresa = document.getElementById('empresaSelect').value;
-  const max = parseInt(document.getElementById('maxArticulos').value)||5;
+async function analizar(){
+  const empresa=document.getElementById('empresaSelect').value;
+  const max=parseInt(document.getElementById('maxArticulos').value)||5;
   if(!empresa){alert('Selecciona una empresa primero.');return;}
-  await ejecutarAnalisis(empresa, max);
+  await ejecutarAnalisis(empresa,max);
 }
-
-async function analizarLibre() {
-  const empresa = document.getElementById('empresaLibre').value.trim();
-  const max = parseInt(document.getElementById('maxArticulos2').value)||5;
+async function analizarLibre(){
+  const empresa=document.getElementById('empresaLibre').value.trim();
+  const max=parseInt(document.getElementById('maxArticulos2').value)||5;
   if(!empresa){alert('Escribe el nombre de una empresa.');return;}
-  await ejecutarAnalisis(empresa, max);
+  await ejecutarAnalisis(empresa,max);
+}
+async function ejecutarAnalisis(empresa,max){
+  setLoading(true);
+  document.getElementById('results').style.display='none';
+  try{
+    const res=await fetch(`${API}/analizar-empresa`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({empresa,max_articulos:max,ventana_contexto:500})});
+    if(!res.ok)throw new Error(`Error ${res.status}`);
+    globalData=await res.json();
+    renderResults(globalData);
+  }catch(e){
+    document.getElementById('error-box').style.display='block';
+    document.getElementById('error-box').innerHTML=`⚠️ Error: ${e.message}. El servicio puede estar iniciando, espera 50s y reintenta.`;
+  }finally{setLoading(false);}
 }
 
-async function ejecutarAnalisis(empresa, max) {
-  setLoading(true);
-  try {
-    const res = await fetch(`${API}/analizar-empresa`,{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({empresa,max_articulos:max,ventana_contexto:300})
-    });
-    if(!res.ok) throw new Error(`Error ${res.status}`);
-    renderResults(await res.json());
-  } catch(e) {
-    document.getElementById('error-box').style.display='block';
-    document.getElementById('error-box').innerHTML=`⚠️ Error: ${e.message}. El servicio puede estar iniciando (espera 50s y reintenta).`;
-  } finally {
-    document.getElementById('loading').style.display='none';
-    document.querySelectorAll('.btn-analizar').forEach(b=>b.disabled=false);
+/* ── DESCARGA CSV ── */
+function descargarCSV(){
+  if(!globalData)return;
+  const rows=[['Fecha','Título','Fuente','Categoría','Sentimiento','Score Riesgo','Confianza','Motor','Razón Claude','URL']];
+  globalData.noticias.forEach(n=>rows.push([n.fecha,n.titulo,n.fuente,n.categoria,n.sentimiento,n.score_riesgo,n.score_confianza,n.analizado_por,n.razon_claude,n.url]));
+  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`SBS_${globalData.empresa}_${globalData.fecha_analisis.replace(/[: ]/g,'-')}.csv`;
+  a.click();
+}
+
+/* ── DESCARGA PDF ── */
+function descargarPDF(){
+  if(!globalData)return;
+  const d=globalData;
+  const a=alertInfo(d.nivel_alerta);
+  const colAlert=d.nivel_alerta==='ALTO'?'#E05252':d.nivel_alerta==='MEDIO'?'#E8C84A':'#3DBE7A';
+  let filas='';
+  d.noticias.forEach((n,i)=>{
+    const col=n.sentimiento==='NEGATIVO'?'#E05252':n.sentimiento==='POSITIVO'?'#3DBE7A':'#6B7FA0';
+    filas+=`<tr style="background:${i%2===0?'#0D1525':'#111D30'}">
+      <td style="padding:8px;font-size:11px;color:#B0BCCF;border-bottom:1px solid #1A2E4A">${n.fecha}</td>
+      <td style="padding:8px;font-size:11px;color:#E8EDF5;border-bottom:1px solid #1A2E4A">${n.titulo}</td>
+      <td style="padding:8px;font-size:11px;color:#B0BCCF;border-bottom:1px solid #1A2E4A">${n.fuente}</td>
+      <td style="padding:8px;font-size:11px;color:${col};font-weight:700;border-bottom:1px solid #1A2E4A;text-align:center">${n.sentimiento}</td>
+      <td style="padding:8px;font-size:11px;color:${col};font-weight:700;border-bottom:1px solid #1A2E4A;text-align:center">${n.score_riesgo}</td>
+      <td style="padding:8px;font-size:11px;color:#B0BCCF;border-bottom:1px solid #1A2E4A">${n.razon_claude||'-'}</td>
+    </tr>`;
+  });
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <style>body{background:#04080F;color:#E8EDF5;font-family:'Segoe UI',sans-serif;padding:40px;margin:0}
+  h1{font-size:24px;font-weight:800;margin-bottom:4px}
+  .sub{color:#6B7FA0;font-size:12px;margin-bottom:24px}
+  .kpi-row{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+  .kpi{background:#0D1525;border:1px solid #1A2E4A;border-radius:10px;padding:16px 20px;min-width:140px}
+  .kl{font-size:9px;color:#6B7FA0;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+  .kv{font-size:28px;font-weight:800}
+  table{width:100%;border-collapse:collapse}
+  th{background:#111D30;color:#6B7FA0;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:10px 8px;text-align:left;border-bottom:2px solid #1A2E4A}
+  .footer{margin-top:32px;text-align:center;font-size:10px;color:#6B7FA0;letter-spacing:1px}
+  @media print{body{padding:20px}}</style></head><body>
+  <h1>📡 SBS Escucha Social — ${d.empresa.toUpperCase()}</h1>
+  <div class="sub">MICROHELP · Análisis generado: ${d.fecha_analisis} · Fuentes: ${d.fuentes_consultadas.join(', ')}</div>
+  <div class="kpi-row">
+    <div class="kpi"><div class="kl">Nivel Alerta</div><div class="kv" style="color:${colAlert}">${d.nivel_alerta}</div></div>
+    <div class="kpi"><div class="kl">Score Riesgo Prom.</div><div class="kv" style="color:${colAlert}">${d.score_riesgo_promedio}</div></div>
+    <div class="kpi"><div class="kl">Total Menciones</div><div class="kv" style="color:#4A85F5">${d.total_menciones}</div></div>
+    <div class="kpi"><div class="kl">Negativas</div><div class="kv" style="color:#E05252">${d.noticias_negativas}</div></div>
+    <div class="kpi"><div class="kl">Positivas</div><div class="kv" style="color:#3DBE7A">${d.noticias_positivas}</div></div>
+    <div class="kpi"><div class="kl">Analizadas Claude</div><div class="kv" style="color:#C8973A">${d.escaladas_claude}</div></div>
+  </div>
+  <table><thead><tr><th>Fecha</th><th>Título</th><th>Fuente</th><th>Sentimiento</th><th>Score</th><th>Razón Claude</th></tr></thead>
+  <tbody>${filas}</tbody></table>
+  <div class="footer">MICROHELP © 2026 · SBS ESCUCHA SOCIAL · RSS → Claude API · DATOS EN TIEMPO REAL</div>
+  </body></html>`;
+  const win=window.open('','_blank');
+  win.document.write(html);
+  win.document.close();
+  setTimeout(()=>win.print(),500);
+}
+
+/* ── EXPANDIR NOTICIA ── */
+function toggleExpand(idx){
+  const el=document.getElementById(`expand-${idx}`);
+  const btn=document.getElementById(`btn-expand-${idx}`);
+  if(el.classList.contains('open')){
+    el.classList.remove('open');
+    btn.textContent='▼ Ver resumen y contexto';
+  }else{
+    el.classList.add('open');
+    btn.textContent='▲ Ocultar';
+    const resumeEl=document.getElementById(`resume-${idx}`);
+    if(!resumeEl.dataset.loaded){
+      resumeEl.dataset.loaded='1';
+      generarResumen(idx);
+    }
   }
 }
 
-function renderResults(d) {
+async function generarResumen(idx){
+  const el=document.getElementById(`resume-${idx}`);
+  el.innerHTML='<div class="epanel-loading"><div class="mini-spin"></div> Generando resumen con Claude...</div>';
+  const n=globalData.noticias[idx];
+  try{
+    const res=await fetch(`${API}/analizar-empresa`,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({empresa:n.titulo,max_articulos:1,ventana_contexto:600})});
+    // Usamos Claude directo desde el frontend via prompt especial
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
+      body:JSON.stringify({
+        model:'claude-haiku-4-5-20251001',max_tokens:200,
+        messages:[{role:'user',content:`Eres analista SBS Perú. Resume en 3 líneas ejecutivas esta noticia financiera:\nTÍTULO: ${n.titulo}\nCONTEXTO: ${n.contexto}\nRAZÓN: ${n.razon_claude}\n\nFormato: 3 bullets cortos, directo, en español.`}]
+      })
+    });
+    if(resp.ok){const r=await resp.json();el.textContent=r.content[0].text;}
+    else{el.textContent=n.razon_claude||'Resumen no disponible.';}
+  }catch{el.textContent=n.razon_claude||'Resumen no disponible.';}
+}
+
+function switchETab(idx,tab){
+  ['resumen','contexto'].forEach(t=>{
+    document.getElementById(`etab-${idx}-${t}`).classList.toggle('active',t===tab);
+    document.getElementById(`epanel-${idx}-${t}`).classList.toggle('active',t===tab);
+  });
+}
+
+/* ── RENDER ── */
+function renderResults(d){
   const a=alertInfo(d.nivel_alerta);
   const sc=scoreClass(d.score_riesgo_promedio);
   let html=`
@@ -290,32 +392,52 @@ function renderResults(d) {
         <div class="alert-detail">${a.msg} Fuentes: ${d.fuentes_consultadas.join(', ')}</div>
       </div>
     </div>
+    <div class="download-bar">
+      <span class="download-bar-label">⬇ DESCARGAR:</span>
+      <button class="btn-dl csv" onclick="descargarCSV()">📊 CSV / Excel</button>
+      <button class="btn-dl pdf" onclick="descargarPDF()">📄 PDF Ejecutivo</button>
+    </div>
     <div class="section-title">Noticias Detectadas <span>${d.noticias.length} resultados</span></div>
     <div class="noticias-grid">`;
+
   d.noticias.forEach((n,i)=>{
     const s=n.sentimiento.toLowerCase();
     const sc2=scoreClass(n.score_riesgo);
     html+=`
       <div class="noticia-card ${s}" style="animation-delay:${0.1+i*0.05}s">
-        <div>
-          <div class="noticia-titulo">${n.titulo}</div>
-          <div class="noticia-meta">
-            <span class="meta-item">📰 ${n.fuente}</span>
-            <span class="meta-item">📅 ${n.fecha}</span>
-            <span class="meta-item cat-badge ${n.categoria}">${n.categoria.toUpperCase()}</span>
-            <span class="meta-item">🤖 ${n.analizado_por}</span>
+        <div class="noticia-top">
+          <div>
+            <div class="noticia-titulo">${n.titulo}</div>
+            <div class="noticia-meta">
+              <span class="meta-item">📰 ${n.fuente}</span>
+              <span class="meta-item">📅 ${n.fecha}</span>
+              <span class="meta-item cat-badge ${n.categoria}">${n.categoria.toUpperCase()}</span>
+              <span class="meta-item">🤖 ${n.analizado_por}</span>
+            </div>
+            ${n.razon_claude?`<div class="noticia-razon">💬 ${n.razon_claude}</div>`:''}
           </div>
-          ${n.razon_claude?`<div class="noticia-razon">💬 ${n.razon_claude}</div>`:''}
+          <div class="noticia-right">
+            <span class="badge-sent ${s}">${n.sentimiento}</span>
+            <div class="score-display">
+              <div class="score-num ${sc2}">${n.score_riesgo}</div>
+              <div class="score-label">RIESGO</div>
+            </div>
+          </div>
         </div>
-        <div class="noticia-right">
-          <span class="badge-sent ${s}">${n.sentimiento}</span>
-          <div class="score-display">
-            <div class="score-num ${sc2}">${n.score_riesgo}</div>
-            <div class="score-label">RIESGO</div>
+        <button class="btn-expand" id="btn-expand-${i}" onclick="toggleExpand(${i})">▼ Ver resumen y contexto</button>
+        <div class="noticia-expand" id="expand-${i}">
+          <div class="expand-tabs">
+            <button class="etab active" id="etab-${i}-resumen" onclick="switchETab(${i},'resumen')">🤖 Resumen ejecutivo</button>
+            <button class="etab" id="etab-${i}-contexto" onclick="switchETab(${i},'contexto')">📄 Contexto completo</button>
           </div>
+          <div class="epanel active" id="epanel-${i}-resumen">
+            <div id="resume-${i}"></div>
+          </div>
+          <div class="epanel" id="epanel-${i}-contexto">${n.contexto||'Contexto no disponible.'}</div>
         </div>
       </div>`;
   });
+
   html+=`</div>`;
   document.getElementById('results').innerHTML=html;
   document.getElementById('results').style.display='block';
