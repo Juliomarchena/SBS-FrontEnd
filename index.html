@@ -28,15 +28,30 @@
   .tab-btn{font-family:var(--font-mono);font-size:11px;padding:6px 18px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;}
   .tab-btn.active{background:var(--gold);color:#000;border-color:var(--gold);font-weight:700;}
   .tab-panel{display:none;}.tab-panel.active{display:block;}
-  .search-row{display:flex;gap:12px;flex-wrap:wrap;}
+  .search-row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;}
   .empresa-select{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:var(--font-body);font-size:14px;padding:12px 16px;border-radius:10px;outline:none;cursor:pointer;transition:border-color 0.2s;}
   .empresa-select:focus{border-color:var(--gold);}
   .input-libre{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--gold);color:var(--text);font-family:var(--font-body);font-size:14px;padding:12px 16px;border-radius:10px;outline:none;transition:all 0.2s;}
   .input-libre:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(200,151,58,0.15);}
   .input-libre::placeholder{color:var(--muted);}
   .hint-libre{font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-top:8px;letter-spacing:0.5px;}
-  .input-num{width:110px;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:13px;padding:12px 16px;border-radius:10px;outline:none;}
-  .btn-analizar{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;font-family:var(--font-head);font-weight:700;font-size:13px;border:none;padding:12px 28px;border-radius:10px;cursor:pointer;letter-spacing:0.5px;transition:all 0.2s;white-space:nowrap;}
+
+  /* ── SLIDER DE DÍAS ── */
+  .slider-wrap{display:flex;flex-direction:column;gap:6px;min-width:220px;}
+  .slider-header{display:flex;justify-content:space-between;align-items:center;}
+  .slider-label{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+  .slider-value{font-family:var(--font-head);font-size:18px;font-weight:800;color:var(--gold);line-height:1;}
+  .slider-unit{font-family:var(--font-mono);font-size:10px;color:var(--muted);}
+  .dias-slider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:var(--border);outline:none;cursor:pointer;}
+  .dias-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));cursor:pointer;transition:transform 0.15s;box-shadow:0 0 8px rgba(200,151,58,0.5);}
+  .dias-slider::-webkit-slider-thumb:hover{transform:scale(1.2);}
+  .dias-slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));cursor:pointer;border:none;}
+  .slider-marks{display:flex;justify-content:space-between;margin-top:2px;}
+  .slider-mark{font-family:var(--font-mono);font-size:9px;color:var(--muted);cursor:pointer;transition:color 0.2s;}
+  .slider-mark:hover{color:var(--gold);}
+  .slider-mark.active{color:var(--gold2);font-weight:600;}
+
+  .btn-analizar{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;font-family:var(--font-head);font-weight:700;font-size:13px;border:none;padding:12px 28px;border-radius:10px;cursor:pointer;letter-spacing:0.5px;transition:all 0.2s;white-space:nowrap;align-self:flex-end;}
   .btn-analizar:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(200,151,58,0.3);}
   .btn-analizar:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
   .empresa-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
@@ -67,8 +82,6 @@
   .alert-icon{font-size:20px;}.alert-text{flex:1;}
   .alert-title{font-family:var(--font-head);font-weight:700;font-size:14px;}
   .alert-detail{font-size:12px;opacity:0.8;margin-top:2px;}
-
-  /* DESCARGA */
   .download-bar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
   .download-bar-label{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:1px;}
   .btn-dl{display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:8px;font-family:var(--font-mono);font-size:11px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s;letter-spacing:0.5px;}
@@ -76,7 +89,6 @@
   .btn-dl.csv:hover{background:rgba(61,190,122,0.3);}
   .btn-dl.pdf{background:rgba(200,151,58,0.15);color:var(--gold);border:1px solid rgba(200,151,58,0.3);}
   .btn-dl.pdf:hover{background:rgba(200,151,58,0.3);}
-
   .section-title{font-family:var(--font-head);font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
   .section-title span{font-family:var(--font-mono);font-size:11px;color:var(--muted);font-weight:400;}
   .noticias-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
@@ -103,8 +115,6 @@
   .cat-badge.prensa{background:rgba(45,107,228,0.15);color:var(--blue2);}
   .cat-badge.bvl{background:rgba(200,151,58,0.15);color:var(--gold);}
   .cat-badge.regulatorio{background:rgba(224,82,82,0.15);color:var(--red);}
-
-  /* EXPANDIBLE */
   .noticia-expand{margin-top:12px;border-top:1px solid var(--border);padding-top:12px;display:none;}
   .noticia-expand.open{display:block;}
   .expand-tabs{display:flex;gap:6px;margin-bottom:10px;}
@@ -115,7 +125,6 @@
   .epanel-loading{font-family:var(--font-mono);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px;}
   .mini-spin{width:12px;height:12px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block;}
   .btn-expand{margin-top:10px;font-family:var(--font-mono);font-size:10px;color:var(--gold);background:none;border:none;cursor:pointer;letter-spacing:0.5px;padding:0;text-decoration:underline;}
-
   #error-box{display:none;background:rgba(224,82,82,0.1);border:1px solid rgba(224,82,82,0.3);border-radius:12px;padding:20px;color:var(--red);margin-top:16px;font-size:13px;}
   .footer{text-align:center;padding:32px 0 16px;font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;}
 </style>
@@ -144,6 +153,8 @@
       <button class="tab-btn active" onclick="switchTab('lista')">📋 Lista predefinida</button>
       <button class="tab-btn" onclick="switchTab('libre')">✏️ Empresa libre</button>
     </div>
+
+    <!-- TAB LISTA -->
     <div class="tab-panel active" id="tab-lista">
       <div class="search-row">
         <select class="empresa-select" id="empresaSelect">
@@ -164,7 +175,24 @@
           <option value="caja piura">Caja Piura</option>
           <option value="caja huancayo">Caja Huancayo</option>
         </select>
-        <input class="input-num" type="number" id="maxArticulos" value="5" min="1" max="20">
+
+        <!-- SLIDER DÍAS -->
+        <div class="slider-wrap">
+          <div class="slider-header">
+            <span class="slider-label">Ventana de análisis</span>
+            <span><span class="slider-value" id="diasValor">30</span> <span class="slider-unit">días</span></span>
+          </div>
+          <input class="dias-slider" type="range" id="diasSlider" min="1" max="365" value="30" step="1" oninput="updateSlider(this.value)">
+          <div class="slider-marks">
+            <span class="slider-mark" onclick="setDias(7)">7d</span>
+            <span class="slider-mark active" onclick="setDias(30)">30d</span>
+            <span class="slider-mark" onclick="setDias(60)">60d</span>
+            <span class="slider-mark" onclick="setDias(90)">90d</span>
+            <span class="slider-mark" onclick="setDias(180)">180d</span>
+            <span class="slider-mark" onclick="setDias(365)">365d</span>
+          </div>
+        </div>
+
         <button class="btn-analizar" id="btnAnalizar" onclick="analizar()">▶ ANALIZAR</button>
       </div>
       <div class="empresa-chips">
@@ -176,10 +204,29 @@
         <div class="chip" onclick="quickSelect('alicorp')">Alicorp</div>
       </div>
     </div>
+
+    <!-- TAB LIBRE -->
     <div class="tab-panel" id="tab-libre">
       <div class="search-row">
         <input class="input-libre" type="text" id="empresaLibre" placeholder="Ej: Banco Pichincha, Financiera Oh, Cencosud..." maxlength="60">
-        <input class="input-num" type="number" id="maxArticulos2" value="5" min="1" max="20">
+
+        <!-- SLIDER DÍAS (libre) -->
+        <div class="slider-wrap">
+          <div class="slider-header">
+            <span class="slider-label">Ventana de análisis</span>
+            <span><span class="slider-value" id="diasValor2">30</span> <span class="slider-unit">días</span></span>
+          </div>
+          <input class="dias-slider" type="range" id="diasSlider2" min="1" max="365" value="30" step="1" oninput="updateSlider2(this.value)">
+          <div class="slider-marks">
+            <span class="slider-mark" onclick="setDias2(7)">7d</span>
+            <span class="slider-mark active" onclick="setDias2(30)">30d</span>
+            <span class="slider-mark" onclick="setDias2(60)">60d</span>
+            <span class="slider-mark" onclick="setDias2(90)">90d</span>
+            <span class="slider-mark" onclick="setDias2(180)">180d</span>
+            <span class="slider-mark" onclick="setDias2(365)">365d</span>
+          </div>
+        </div>
+
         <button class="btn-analizar" onclick="analizarLibre()">▶ ANALIZAR</button>
       </div>
       <div class="hint-libre">💡 Escribe cualquier empresa peruana — el sistema busca en prensa, BVL y regulatorio automáticamente</div>
@@ -197,47 +244,87 @@
 const API = 'https://sbs-escucha-social-3.onrender.com';
 let globalData = null;
 
-function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&tab==='lista')||(i===1&&tab==='libre')));
-  document.getElementById('tab-lista').classList.toggle('active',tab==='lista');
-  document.getElementById('tab-libre').classList.toggle('active',tab==='libre');
+/* ── SLIDER LÓGICA ── */
+function updateSlider(val) {
+  document.getElementById('diasValor').textContent = val;
+  updateMarks('diasSlider', parseInt(val));
 }
-function quickSelect(e){document.getElementById('empresaSelect').value=e;}
-function scoreClass(s){return s>=40?'alto':s>=15?'medio':'bajo';}
-function alertInfo(nivel){
+function updateSlider2(val) {
+  document.getElementById('diasValor2').textContent = val;
+  updateMarks('diasSlider2', parseInt(val));
+}
+function updateMarks(sliderId, val) {
+  const marks = [7, 30, 60, 90, 180, 365];
+  const container = document.getElementById(sliderId).nextElementSibling;
+  container.querySelectorAll('.slider-mark').forEach((m, i) => {
+    m.classList.toggle('active', marks[i] === val);
+  });
+  // Actualiza el gradiente del track según el valor
+  const pct = ((val - 1) / (365 - 1)) * 100;
+  document.getElementById(sliderId).style.background =
+    `linear-gradient(to right, var(--gold) ${pct}%, var(--border) ${pct}%)`;
+}
+function setDias(d) {
+  document.getElementById('diasSlider').value = d;
+  updateSlider(d);
+}
+function setDias2(d) {
+  document.getElementById('diasSlider2').value = d;
+  updateSlider2(d);
+}
+
+// Inicializar tracks al cargar
+window.addEventListener('load', () => {
+  updateSlider(30);
+  updateSlider2(30);
+});
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) =>
+    b.classList.toggle('active', (i===0&&tab==='lista')||(i===1&&tab==='libre')));
+  document.getElementById('tab-lista').classList.toggle('active', tab==='lista');
+  document.getElementById('tab-libre').classList.toggle('active', tab==='libre');
+}
+function quickSelect(e) { document.getElementById('empresaSelect').value = e; }
+function scoreClass(s) { return s>=40?'alto':s>=15?'medio':'bajo'; }
+function alertInfo(nivel) {
   if(nivel==='ALTO')  return{cls:'alto', icon:'🔴',title:'ALERTA ALTA', msg:'Se detectaron noticias de alto riesgo regulatorio o financiero.'};
   if(nivel==='MEDIO') return{cls:'medio',icon:'🟡',title:'ALERTA MEDIA',msg:'Situación bajo monitoreo. Riesgo moderado detectado.'};
   return{cls:'bajo',icon:'🟢',title:'NIVEL BAJO',msg:'Sin eventos críticos detectados en el período analizado.'};
 }
-function setLoading(on){
-  document.getElementById('loading').style.display=on?'block':'none';
-  document.getElementById('error-box').style.display='none';
-  document.querySelectorAll('.btn-analizar').forEach(b=>b.disabled=on);
+function setLoading(on) {
+  document.getElementById('loading').style.display = on?'block':'none';
+  document.getElementById('error-box').style.display = 'none';
+  document.querySelectorAll('.btn-analizar').forEach(b => b.disabled = on);
 }
-async function analizar(){
-  const empresa=document.getElementById('empresaSelect').value;
-  const max=parseInt(document.getElementById('maxArticulos').value)||5;
-  if(!empresa){alert('Selecciona una empresa primero.');return;}
-  await ejecutarAnalisis(empresa,max);
+async function analizar() {
+  const empresa = document.getElementById('empresaSelect').value;
+  const dias = parseInt(document.getElementById('diasSlider').value) || 30;
+  if(!empresa){ alert('Selecciona una empresa primero.'); return; }
+  await ejecutarAnalisis(empresa, dias);
 }
-async function analizarLibre(){
-  const empresa=document.getElementById('empresaLibre').value.trim();
-  const max=parseInt(document.getElementById('maxArticulos2').value)||5;
-  if(!empresa){alert('Escribe el nombre de una empresa.');return;}
-  await ejecutarAnalisis(empresa,max);
+async function analizarLibre() {
+  const empresa = document.getElementById('empresaLibre').value.trim();
+  const dias = parseInt(document.getElementById('diasSlider2').value) || 30;
+  if(!empresa){ alert('Escribe el nombre de una empresa.'); return; }
+  await ejecutarAnalisis(empresa, dias);
 }
-async function ejecutarAnalisis(empresa,max){
+async function ejecutarAnalisis(empresa, dias) {
   setLoading(true);
-  document.getElementById('results').style.display='none';
-  try{
-    const res=await fetch(`${API}/analizar-empresa`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({empresa,max_articulos:max,ventana_contexto:500})});
-    if(!res.ok)throw new Error(`Error ${res.status}`);
-    globalData=await res.json();
+  document.getElementById('results').style.display = 'none';
+  try {
+    const res = await fetch(`${API}/analizar-empresa`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({empresa, dias_atras: dias, ventana_contexto: 500})
+    });
+    if(!res.ok) throw new Error(`Error ${res.status}`);
+    globalData = await res.json();
     renderResults(globalData);
-  }catch(e){
-    document.getElementById('error-box').style.display='block';
-    document.getElementById('error-box').innerHTML=`⚠️ Error: ${e.message}. El servicio puede estar iniciando, espera 50s y reintenta.`;
-  }finally{setLoading(false);}
+  } catch(e) {
+    document.getElementById('error-box').style.display = 'block';
+    document.getElementById('error-box').innerHTML = `⚠️ Error: ${e.message}. El servicio puede estar iniciando, espera 50s y reintenta.`;
+  } finally { setLoading(false); }
 }
 
 /* ── DESCARGA CSV ── */
@@ -297,50 +384,34 @@ function descargarPDF(){
   <div class="footer">MICROHELP © 2026 · SBS ESCUCHA SOCIAL · RSS → Claude API · DATOS EN TIEMPO REAL</div>
   </body></html>`;
   const win=window.open('','_blank');
-  win.document.write(html);
-  win.document.close();
-  setTimeout(()=>win.print(),500);
+  win.document.write(html);win.document.close();setTimeout(()=>win.print(),500);
 }
 
 /* ── EXPANDIR NOTICIA ── */
 function toggleExpand(idx){
   const el=document.getElementById(`expand-${idx}`);
   const btn=document.getElementById(`btn-expand-${idx}`);
-  if(el.classList.contains('open')){
-    el.classList.remove('open');
-    btn.textContent='▼ Ver resumen y contexto';
-  }else{
-    el.classList.add('open');
-    btn.textContent='▲ Ocultar';
+  if(el.classList.contains('open')){el.classList.remove('open');btn.textContent='▼ Ver resumen y contexto';}
+  else{el.classList.add('open');btn.textContent='▲ Ocultar';
     const resumeEl=document.getElementById(`resume-${idx}`);
-    if(!resumeEl.dataset.loaded){
-      resumeEl.dataset.loaded='1';
-      generarResumen(idx);
-    }
+    if(!resumeEl.dataset.loaded){resumeEl.dataset.loaded='1';generarResumen(idx);}
   }
 }
-
 async function generarResumen(idx){
   const el=document.getElementById(`resume-${idx}`);
   el.innerHTML='<div class="epanel-loading"><div class="mini-spin"></div> Generando resumen con Claude...</div>';
   const n=globalData.noticias[idx];
   try{
-    const res=await fetch(`${API}/analizar-empresa`,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({empresa:n.titulo,max_articulos:1,ventana_contexto:600})});
-    // Usamos Claude directo desde el frontend via prompt especial
     const resp=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01'},
-      body:JSON.stringify({
-        model:'claude-haiku-4-5-20251001',max_tokens:200,
-        messages:[{role:'user',content:`Eres analista SBS Perú. Resume en 3 líneas ejecutivas esta noticia financiera:\nTÍTULO: ${n.titulo}\nCONTEXTO: ${n.contexto}\nRAZÓN: ${n.razon_claude}\n\nFormato: 3 bullets cortos, directo, en español.`}]
-      })
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:200,
+        messages:[{role:'user',content:`Eres analista SBS Perú. Resume en 3 líneas ejecutivas esta noticia financiera:\nTÍTULO: ${n.titulo}\nCONTEXTO: ${n.contexto}\nRAZÓN: ${n.razon_claude}\n\nFormato: 3 bullets cortos, directo, en español.`}]})
     });
     if(resp.ok){const r=await resp.json();el.textContent=r.content[0].text;}
     else{el.textContent=n.razon_claude||'Resumen no disponible.';}
   }catch{el.textContent=n.razon_claude||'Resumen no disponible.';}
 }
-
 function switchETab(idx,tab){
   ['resumen','contexto'].forEach(t=>{
     document.getElementById(`etab-${idx}-${t}`).classList.toggle('active',t===tab);
@@ -430,9 +501,7 @@ function renderResults(d){
             <button class="etab active" id="etab-${i}-resumen" onclick="switchETab(${i},'resumen')">🤖 Resumen ejecutivo</button>
             <button class="etab" id="etab-${i}-contexto" onclick="switchETab(${i},'contexto')">📄 Contexto completo</button>
           </div>
-          <div class="epanel active" id="epanel-${i}-resumen">
-            <div id="resume-${i}"></div>
-          </div>
+          <div class="epanel active" id="epanel-${i}-resumen"><div id="resume-${i}"></div></div>
           <div class="epanel" id="epanel-${i}-contexto">${n.contexto||'Contexto no disponible.'}</div>
         </div>
       </div>`;
