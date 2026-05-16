@@ -192,6 +192,90 @@ main{max-width:1200px;margin:0 auto;padding:40px 24px;}
 
 #error-box,#error-box2{display:none;background:rgba(224,82,82,0.1);border:1px solid rgba(224,82,82,0.3);border-radius:12px;padding:20px;color:var(--red);margin-top:16px;font-size:13px;}
 .footer{text-align:center;padding:32px 0 16px;font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ANÁLISIS CONSOLIDADO - NUEVO MÓDULO                        */
+/* ═══════════════════════════════════════════════════════════ */
+.ac-section{margin-top:32px;border-top:2px solid var(--border);padding-top:28px;animation:fadeUp 0.5s ease both;}
+.ac-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:24px;}
+.ac-title{font-family:var(--font-head);font-size:20px;font-weight:800;display:flex;align-items:center;gap:10px;}
+.ac-title-icon{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#7C3AED,#2D6BE4);display:flex;align-items:center;justify-content:center;font-size:16px;}
+.ac-subtitle{font-size:12px;color:var(--muted);margin-top:4px;}
+.btn-consolidado{background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;font-family:var(--font-head);font-weight:700;font-size:13px;border:none;padding:12px 28px;border-radius:10px;cursor:pointer;letter-spacing:0.5px;transition:all 0.3s;display:flex;align-items:center;gap:8px;}
+.btn-consolidado:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(124,58,237,0.4);}
+.btn-consolidado:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-consolidado .btn-spin{width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.6s linear infinite;display:none;}
+.btn-consolidado.loading .btn-spin{display:inline-block;}
+.btn-consolidado.loading .btn-label{display:none;}
+
+/* Score Global Card */
+.ac-score-global{border-radius:16px;padding:28px;margin-bottom:24px;position:relative;overflow:hidden;}
+.ac-score-global::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.06),transparent 70%);pointer-events:none;}
+.ac-score-global.CRITICO{background:linear-gradient(135deg,rgba(224,82,82,0.15),rgba(224,82,82,0.05));border:1px solid rgba(224,82,82,0.4);}
+.ac-score-global.ALTO{background:linear-gradient(135deg,rgba(230,81,0,0.15),rgba(230,81,0,0.05));border:1px solid rgba(230,81,0,0.4);}
+.ac-score-global.MEDIO{background:linear-gradient(135deg,rgba(232,200,74,0.15),rgba(232,200,74,0.05));border:1px solid rgba(232,200,74,0.4);}
+.ac-score-global.BAJO{background:linear-gradient(135deg,rgba(61,190,122,0.15),rgba(61,190,122,0.05));border:1px solid rgba(61,190,122,0.4);}
+.ac-sg-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;}
+.ac-sg-level{font-family:var(--font-head);font-size:28px;font-weight:800;}
+.ac-sg-level.CRITICO{color:var(--red);}.ac-sg-level.ALTO{color:#E65100;}.ac-sg-level.MEDIO{color:var(--yellow);}.ac-sg-level.BAJO{color:var(--green);}
+.ac-sg-entity{font-size:14px;color:var(--text);margin-top:4px;}
+.ac-sg-period{font-family:var(--font-mono);font-size:11px;color:var(--muted);}
+.ac-sg-stats{display:flex;gap:24px;text-align:right;}
+.ac-sg-stat-val{font-family:var(--font-head);font-size:22px;font-weight:800;}
+.ac-sg-stat-label{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:1px;}
+/* Sentiment bar */
+.ac-sent-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-top:20px;gap:2px;}
+.ac-sent-bar div{border-radius:3px;transition:width 0.5s ease;}
+.ac-sent-neg{background:var(--red);}.ac-sent-neu{background:var(--muted);}.ac-sent-pos{background:var(--green);}
+.ac-sent-legend{display:flex;gap:16px;margin-top:8px;}
+.ac-sent-legend-item{font-family:var(--font-mono);font-size:10px;color:var(--muted);display:flex;align-items:center;gap:4px;}
+.ac-sent-legend-dot{width:8px;height:8px;border-radius:50%;}
+
+/* Dimensiones Grid */
+.ac-dims-title{font-family:var(--font-head);font-size:15px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.ac-dims-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:28px;}
+.ac-dim-card{background:var(--surface);border-radius:12px;padding:18px;border:1px solid var(--border);position:relative;overflow:hidden;transition:all 0.2s;}
+.ac-dim-card:hover{border-color:rgba(200,151,58,0.4);background:var(--surface2);}
+.ac-dim-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.ac-dim-card.CRITICO::before{background:var(--red);}.ac-dim-card.ALTO::before{background:#E65100;}
+.ac-dim-card.MEDIO::before{background:var(--yellow);}.ac-dim-card.BAJO::before{background:var(--green);}
+.ac-dim-card.POSITIVO::before{background:#00695C;}
+.ac-dim-name{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px;}
+.ac-dim-nivel{font-family:var(--font-head);font-size:16px;font-weight:800;margin-bottom:8px;}
+.ac-dim-nivel.CRITICO{color:var(--red);}.ac-dim-nivel.ALTO{color:#E65100;}
+.ac-dim-nivel.MEDIO{color:var(--yellow);}.ac-dim-nivel.BAJO{color:var(--green);}.ac-dim-nivel.POSITIVO{color:#26A69A;}
+.ac-dim-hallazgos{font-size:12px;color:#B0BCCF;line-height:1.6;}
+
+/* Patrones */
+.ac-patrones-section{margin-bottom:28px;}
+.ac-patron-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:12px;border-left:3px solid #7C3AED;}
+.ac-patron-title{font-family:var(--font-head);font-size:13px;font-weight:700;color:#A78BFA;margin-bottom:8px;}
+.ac-patron-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;}
+.ac-patron-label{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:4px;}
+.ac-patron-text{font-size:12px;color:#B0BCCF;line-height:1.5;}
+
+/* Correlaciones */
+.ac-corr-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:12px;border-left:3px solid var(--blue);}
+.ac-corr-eventos{font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px;}
+.ac-corr-interp{font-size:12px;color:#B0BCCF;line-height:1.5;font-style:italic;}
+
+/* Conclusión */
+.ac-conclusion{background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(45,107,228,0.05));border:1px solid rgba(124,58,237,0.3);border-radius:16px;padding:24px;margin-bottom:20px;}
+.ac-conclusion-title{font-family:var(--font-head);font-size:15px;font-weight:700;color:#A78BFA;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.ac-conclusion-text{font-size:13px;color:var(--text);line-height:1.8;}
+
+/* Recomendaciones */
+.ac-recs{margin-top:16px;}
+.ac-rec-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(26,46,74,0.3);}
+.ac-rec-item:last-child{border-bottom:none;}
+.ac-rec-num{font-family:var(--font-head);font-size:14px;font-weight:800;color:var(--gold);min-width:24px;}
+.ac-rec-text{font-size:12px;color:#B0BCCF;line-height:1.5;}
+
+/* Loading overlay for consolidated */
+.ac-loading{text-align:center;padding:48px 0;}
+.ac-loading-brain{font-size:48px;animation:pulse 1.5s ease infinite;}
+.ac-loading-text{font-family:var(--font-mono);font-size:12px;color:var(--muted);letter-spacing:1px;margin-top:16px;}
+.ac-loading-sub{font-size:11px;color:var(--muted);margin-top:4px;opacity:0.6;}
 </style>
 </head>
 <body>
@@ -201,7 +285,7 @@ main{max-width:1200px;margin:0 auto;padding:40px 24px;}
     <div class="logo-icon">📡</div>
     <div>
       <div class="logo-text">SBS Escucha Social</div>
-      <div class="logo-sub">MICROHELP · v4.1</div>
+      <div class="logo-sub">MICROHELP · v4.2</div>
     </div>
   </div>
   <div class="header-right">
@@ -300,6 +384,9 @@ main{max-width:1200px;margin:0 auto;padding:40px 24px;}
   <div id="loading"><div class="spinner"></div><div class="loading-text">CONSULTANDO RSS + ANALIZANDO CON CLAUDE...</div></div>
   <div id="error-box"></div>
   <div id="results"></div>
+
+  <!-- ═══ ANÁLISIS CONSOLIDADO (aparece después de resultados) ═══ -->
+  <div id="ac-container" style="display:none;"></div>
 </main>
 </div>
 
@@ -386,13 +473,14 @@ main{max-width:1200px;margin:0 auto;padding:40px 24px;}
 </main>
 </div>
 
-<div class="footer">MICROHELP © 2026 · SBS ESCUCHA SOCIAL · v4.1 · DATOS EN TIEMPO REAL</div>
+<div class="footer">MICROHELP © 2026 · SBS ESCUCHA SOCIAL · v4.2 · DATOS EN TIEMPO REAL</div>
 
 <script>
 const API = 'https://sbs-escucha-social-3.onrender.com';
 let globalData = null;
 let resumenData = [];
 let chartInstance = null;
+let analisisConsolidadoData = null;
 
 /* ── NAVEGACIÓN ── */
 function switchPage(p){
@@ -453,11 +541,15 @@ async function analizarLibre(){
 async function ejecutarAnalisis(empresa,dias){
   setLoading(true);
   document.getElementById('results').style.display='none';
+  document.getElementById('ac-container').style.display='none';
+  analisisConsolidadoData=null;
   try{
     const res=await fetch(`${API}/analizar-empresa`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({empresa,dias_atras:dias,ventana_contexto:500})});
     if(!res.ok)throw new Error(`Error ${res.status}`);
     globalData=await res.json();
     renderResults(globalData);
+    // Mostrar sección de Análisis Consolidado
+    mostrarBotonConsolidado(globalData);
   }catch(e){
     document.getElementById('error-box').style.display='block';
     document.getElementById('error-box').innerHTML=`⚠️ Error: ${e.message}. El servicio puede estar iniciando, espera 50s y reintenta.`;
@@ -485,7 +577,6 @@ function renderChart(noticias){
   const canvas=document.getElementById('tendenciaChart');
   if(!canvas)return;
   if(chartInstance){chartInstance.destroy();chartInstance=null;}
-  // Agrupar por fecha
   const byDate={};
   noticias.forEach(n=>{
     const f=n.fecha?n.fecha.substring(0,10):'?';
@@ -568,7 +659,6 @@ function renderResults(d,prefix='',suffix=''){
       </div>
     </div>`;
 
-  // Solo en la página de analizar: gráfico + filtros + botón resumen
   if(!prefix){
     html+=`
     <div class="chart-section">
@@ -638,6 +728,358 @@ function renderResults(d,prefix='',suffix=''){
   if(!prefix) setTimeout(()=>renderChart(d.noticias),100);
 }
 
+/* ═══════════════════════════════════════════════════════════════ */
+/* MÓDULO DE ANÁLISIS CONSOLIDADO                                 */
+/* ═══════════════════════════════════════════════════════════════ */
+
+const SYSTEM_PROMPT_CONSOLIDADO = `Eres un analista sénior de riesgo reputacional del sistema financiero peruano.
+Tu rol es analizar el CONJUNTO de noticias ya clasificadas sobre una entidad financiera y generar un informe consolidado de riesgo.
+
+CONTEXTO:
+- Trabajas para la Superintendencia de Banca, Seguros y AFP del Perú (SBS)
+- Las noticias ya fueron clasificadas individualmente con sentimiento y score de riesgo
+- Tu trabajo es encontrar PATRONES, no repetir el análisis individual
+
+INSTRUCCIONES DE ANÁLISIS:
+
+1. PATRONES: Identifica temas recurrentes. ¿Se repiten sanciones? ¿Hay escalamiento de un problema? ¿Hay correlaciones entre eventos?
+   Ejemplo: múltiples sanciones de Indecopi + salida de directivos = señal compuesta de crisis de gobernanza.
+
+2. DIMENSIONES DE RIESGO: Agrupa hallazgos en estas dimensiones:
+   - REGULATORIO: Sanciones, multas, incumplimientos normativos
+   - GOBERNANZA: Cambios directivos, estructura organizacional
+   - FINANCIERO: Indicadores económicos, solidez, liquidez
+   - REPUTACIONAL: Percepción pública, imagen de marca
+   - OPERATIVO: Fallas en servicio, quejas sistemáticas
+
+3. NIVEL DE RIESGO POR DIMENSIÓN:
+   - CRITICO: Múltiples eventos negativos graves, patrón claro
+   - ALTO: Eventos negativos significativos con potencial de escalamiento
+   - MEDIO: Señales de alerta que requieren monitoreo
+   - BAJO: Sin indicadores negativos relevantes
+   - POSITIVO: Indicadores favorables que fortalecen la posición
+
+4. CORRELACIONES: Busca conexiones entre noticias que no son evidentes individualmente.
+
+FORMATO DE RESPUESTA (responde SOLO en JSON válido, sin markdown, sin backticks, sin texto adicional):
+{
+  "entidad": "nombre",
+  "periodo": "descripción del periodo",
+  "total_noticias": número,
+  "distribucion_sentimiento": {"positivo": n, "negativo": n, "neutral": n},
+  "score_riesgo_promedio": número,
+  "score_riesgo_maximo": número,
+  "dimensiones": [
+    {"nombre": "REGULATORIO|GOBERNANZA|FINANCIERO|REPUTACIONAL|OPERATIVO", "nivel": "CRITICO|ALTO|MEDIO|BAJO|POSITIVO", "hallazgos": "texto", "noticias_relacionadas": [índices]}
+  ],
+  "patrones_detectados": [
+    {"patron": "texto", "evidencia": "texto", "implicancia": "texto"}
+  ],
+  "correlaciones": [
+    {"eventos": "texto", "interpretacion": "texto"}
+  ],
+  "conclusion_ejecutiva": "párrafo de 3-5 líneas",
+  "nivel_riesgo_global": "CRITICO|ALTO|MEDIO|BAJO",
+  "recomendaciones": ["acción 1", "acción 2", "acción 3"]
+}
+
+REGLAS:
+- Responde SOLO con el JSON, sin texto adicional
+- Sé específico y basado en evidencia
+- Si no hay suficientes noticias para un patrón, indica "Datos insuficientes para detectar patrones"
+- El nivel global debe reflejar la dimensión más crítica
+- Las recomendaciones deben ser accionables para un supervisor SBS
+- Solo incluye dimensiones donde haya evidencia (no inventes dimensiones vacías)`;
+
+function buildUserPrompt(entidad, noticias, diasVentana) {
+  const resumen = noticias.map((n, i) =>
+    `[${i+1}] Fecha: ${n.fecha} | Fuente: ${n.fuente} | Categoría: ${n.categoria} | Sentimiento: ${n.sentimiento} | Score: ${n.score_riesgo} | Título: ${n.titulo} | Razón: ${n.razon_claude || 'N/A'}`
+  ).join('\n');
+  return `Analiza las siguientes ${noticias.length} noticias sobre "${entidad}" de los últimos ${diasVentana} días:\n\n${resumen}`;
+}
+
+function mostrarBotonConsolidado(data) {
+  const container = document.getElementById('ac-container');
+  const dias = parseInt(document.getElementById('diasSlider').value) || parseInt(document.getElementById('diasSlider2').value) || 30;
+  container.innerHTML = `
+    <div class="ac-section">
+      <div class="ac-header">
+        <div>
+          <div class="ac-title">
+            <div class="ac-title-icon">🧠</div>
+            Análisis Consolidado de Riesgo
+          </div>
+          <div class="ac-subtitle">Inteligencia analítica: detecta patrones, correlaciones y genera diagnóstico ejecutivo cruzando todas las noticias</div>
+        </div>
+        <button class="btn-consolidado" id="btnConsolidado" onclick="ejecutarAnalisisConsolidado()">
+          <div class="btn-spin"></div>
+          <span class="btn-label">🧠 GENERAR ANÁLISIS CONSOLIDADO</span>
+        </button>
+      </div>
+      <div id="ac-results"></div>
+    </div>`;
+  container.style.display = 'block';
+}
+
+async function ejecutarAnalisisConsolidado() {
+  if (!globalData || !globalData.noticias.length) return;
+
+  const btn = document.getElementById('btnConsolidado');
+  const resultsDiv = document.getElementById('ac-results');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  const dias = parseInt(document.getElementById('diasSlider').value) || parseInt(document.getElementById('diasSlider2').value) || 30;
+
+  resultsDiv.innerHTML = `
+    <div class="ac-loading">
+      <div class="ac-loading-brain">🧠</div>
+      <div class="ac-loading-text">CLAUDE ESTÁ ANALIZANDO PATRONES Y CORRELACIONES...</div>
+      <div class="ac-loading-sub">Procesando ${globalData.noticias.length} noticias de ${globalData.empresa.toUpperCase()}</div>
+    </div>`;
+
+  try {
+    const userPrompt = buildUserPrompt(globalData.empresa, globalData.noticias, dias);
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4096,
+        system: SYSTEM_PROMPT_CONSOLIDADO,
+        messages: [{ role: 'user', content: userPrompt }]
+      })
+    });
+
+    if (!response.ok) throw new Error(`API Error ${response.status}`);
+    const data = await response.json();
+    const textoRespuesta = data.content[0].text;
+    const jsonLimpio = textoRespuesta.replace(/```json/g, '').replace(/```/g, '').trim();
+    analisisConsolidadoData = JSON.parse(jsonLimpio);
+    renderAnalisisConsolidado(analisisConsolidadoData);
+
+  } catch (error) {
+    console.error('Error análisis consolidado:', error);
+    resultsDiv.innerHTML = `
+      <div style="background:rgba(224,82,82,0.1);border:1px solid rgba(224,82,82,0.3);border-radius:12px;padding:20px;color:var(--red);text-align:center;">
+        ⚠️ Error al generar el análisis consolidado: ${error.message}<br>
+        <span style="font-size:11px;color:var(--muted);">Verifica la conexión con Claude API e intenta nuevamente.</span>
+      </div>`;
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+function renderAnalisisConsolidado(ac) {
+  const resultsDiv = document.getElementById('ac-results');
+  const nivel = ac.nivel_riesgo_global || 'MEDIO';
+  const dist = ac.distribucion_sentimiento || {};
+  const total = (dist.positivo||0) + (dist.negativo||0) + (dist.neutral||0) || 1;
+  const pctNeg = ((dist.negativo||0)/total*100).toFixed(0);
+  const pctNeu = ((dist.neutral||0)/total*100).toFixed(0);
+  const pctPos = ((dist.positivo||0)/total*100).toFixed(0);
+
+  let html = '';
+
+  // ── SCORE GLOBAL ──
+  html += `
+    <div class="ac-score-global ${nivel}">
+      <div class="ac-sg-top">
+        <div>
+          <div class="ac-sg-level ${nivel}">⚡ RIESGO ${nivel}</div>
+          <div class="ac-sg-entity">${ac.entidad || globalData.empresa.toUpperCase()}</div>
+          <div class="ac-sg-period">${ac.periodo || ''}</div>
+        </div>
+        <div class="ac-sg-stats">
+          <div>
+            <div class="ac-sg-stat-val" style="color:var(--text)">${ac.total_noticias || 0}</div>
+            <div class="ac-sg-stat-label">NOTICIAS</div>
+          </div>
+          <div>
+            <div class="ac-sg-stat-val" style="color:var(--gold)">${ac.score_riesgo_promedio || 0}</div>
+            <div class="ac-sg-stat-label">SCORE PROM.</div>
+          </div>
+          <div>
+            <div class="ac-sg-stat-val" style="color:var(--red)">${ac.score_riesgo_maximo || 0}</div>
+            <div class="ac-sg-stat-label">SCORE MÁX.</div>
+          </div>
+        </div>
+      </div>
+      <div class="ac-sent-bar">
+        <div class="ac-sent-neg" style="width:${pctNeg}%"></div>
+        <div class="ac-sent-neu" style="width:${pctNeu}%"></div>
+        <div class="ac-sent-pos" style="width:${pctPos}%"></div>
+      </div>
+      <div class="ac-sent-legend">
+        <div class="ac-sent-legend-item"><div class="ac-sent-legend-dot" style="background:var(--red)"></div> Negativas ${dist.negativo||0}</div>
+        <div class="ac-sent-legend-item"><div class="ac-sent-legend-dot" style="background:var(--muted)"></div> Neutrales ${dist.neutral||0}</div>
+        <div class="ac-sent-legend-item"><div class="ac-sent-legend-dot" style="background:var(--green)"></div> Positivas ${dist.positivo||0}</div>
+      </div>
+    </div>`;
+
+  // ── DIMENSIONES ──
+  if (ac.dimensiones && ac.dimensiones.length) {
+    html += `<div class="ac-dims-title">📊 Dimensiones de Riesgo</div><div class="ac-dims-grid">`;
+    const dimIcons = {REGULATORIO:'⚖️',GOBERNANZA:'🏛️',FINANCIERO:'💰',REPUTACIONAL:'📣',OPERATIVO:'⚙️'};
+    ac.dimensiones.forEach(dim => {
+      html += `
+        <div class="ac-dim-card ${dim.nivel}">
+          <div class="ac-dim-name">${dimIcons[dim.nombre]||'📌'} ${dim.nombre}</div>
+          <div class="ac-dim-nivel ${dim.nivel}">${dim.nivel}</div>
+          <div class="ac-dim-hallazgos">${dim.hallazgos}</div>
+        </div>`;
+    });
+    html += `</div>`;
+  }
+
+  // ── PATRONES ──
+  if (ac.patrones_detectados && ac.patrones_detectados.length) {
+    html += `<div class="ac-patrones-section"><div class="ac-dims-title">🔍 Patrones Detectados</div>`;
+    ac.patrones_detectados.forEach(p => {
+      html += `
+        <div class="ac-patron-card">
+          <div class="ac-patron-title">${p.patron}</div>
+          <div class="ac-patron-row">
+            <div>
+              <div class="ac-patron-label">EVIDENCIA</div>
+              <div class="ac-patron-text">${p.evidencia}</div>
+            </div>
+            <div>
+              <div class="ac-patron-label">IMPLICANCIA</div>
+              <div class="ac-patron-text">${p.implicancia}</div>
+            </div>
+          </div>
+        </div>`;
+    });
+    html += `</div>`;
+  }
+
+  // ── CORRELACIONES ──
+  if (ac.correlaciones && ac.correlaciones.length) {
+    html += `<div class="ac-patrones-section"><div class="ac-dims-title">🔗 Correlaciones Detectadas</div>`;
+    ac.correlaciones.forEach(c => {
+      html += `
+        <div class="ac-corr-card">
+          <div class="ac-corr-eventos">↔ ${c.eventos}</div>
+          <div class="ac-corr-interp">${c.interpretacion}</div>
+        </div>`;
+    });
+    html += `</div>`;
+  }
+
+  // ── CONCLUSIÓN EJECUTIVA ──
+  html += `
+    <div class="ac-conclusion">
+      <div class="ac-conclusion-title">📋 Conclusión Ejecutiva</div>
+      <div class="ac-conclusion-text">${ac.conclusion_ejecutiva || ''}</div>`;
+
+  // Recomendaciones
+  if (ac.recomendaciones && ac.recomendaciones.length) {
+    html += `<div class="ac-recs"><div class="ac-dims-title" style="margin-top:16px;font-size:13px;">🎯 Recomendaciones</div>`;
+    ac.recomendaciones.forEach((r, i) => {
+      html += `
+        <div class="ac-rec-item">
+          <div class="ac-rec-num">${i+1}</div>
+          <div class="ac-rec-text">${r}</div>
+        </div>`;
+    });
+    html += `</div>`;
+  }
+  html += `</div>`;
+
+  // ── BOTÓN EXPORTAR PDF CONSOLIDADO ──
+  html += `
+    <div class="download-bar" style="margin-top:16px;">
+      <span class="download-bar-label">⬇ EXPORTAR ANÁLISIS:</span>
+      <button class="btn-dl pdf" onclick="exportarConsolidadoPDF()">📄 PDF Análisis Consolidado</button>
+    </div>`;
+
+  resultsDiv.innerHTML = html;
+
+  // Scroll suave al resultado
+  resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ── EXPORTAR PDF CONSOLIDADO ── */
+function exportarConsolidadoPDF() {
+  if (!analisisConsolidadoData) return;
+  const ac = analisisConsolidadoData;
+  const nivel = ac.nivel_riesgo_global || 'MEDIO';
+  const colNivel = nivel==='CRITICO'?'#E05252':nivel==='ALTO'?'#E65100':nivel==='MEDIO'?'#E8C84A':'#3DBE7A';
+
+  let dimsHTML = '';
+  if (ac.dimensiones) {
+    ac.dimensiones.forEach(d => {
+      const dc = d.nivel==='CRITICO'?'#E05252':d.nivel==='ALTO'?'#E65100':d.nivel==='MEDIO'?'#E8C84A':d.nivel==='POSITIVO'?'#26A69A':'#3DBE7A';
+      dimsHTML += `<div style="background:#0D1525;border:1px solid #1A2E4A;border-radius:8px;padding:14px;border-top:3px solid ${dc};">
+        <div style="font-size:10px;color:#6B7FA0;letter-spacing:1px;margin-bottom:4px;">${d.nombre}</div>
+        <div style="font-size:16px;font-weight:800;color:${dc};margin-bottom:6px;">${d.nivel}</div>
+        <div style="font-size:11px;color:#B0BCCF;line-height:1.5;">${d.hallazgos}</div>
+      </div>`;
+    });
+  }
+
+  let patronesHTML = '';
+  if (ac.patrones_detectados) {
+    ac.patrones_detectados.forEach(p => {
+      patronesHTML += `<div style="background:#0D1525;border:1px solid #1A2E4A;border-radius:8px;padding:14px;border-left:3px solid #7C3AED;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#A78BFA;margin-bottom:6px;">${p.patron}</div>
+        <div style="font-size:11px;color:#B0BCCF;line-height:1.5;"><b>Evidencia:</b> ${p.evidencia}</div>
+        <div style="font-size:11px;color:#B0BCCF;line-height:1.5;margin-top:4px;"><b>Implicancia:</b> ${p.implicancia}</div>
+      </div>`;
+    });
+  }
+
+  let recsHTML = '';
+  if (ac.recomendaciones) {
+    ac.recomendaciones.forEach((r, i) => {
+      recsHTML += `<div style="padding:8px 0;border-bottom:1px solid #1A2E4A;display:flex;gap:10px;">
+        <span style="font-weight:800;color:#C8973A;min-width:20px;">${i+1}</span>
+        <span style="font-size:12px;color:#B0BCCF;">${r}</span>
+      </div>`;
+    });
+  }
+
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+    body{background:#04080F;color:#E8EDF5;font-family:'Segoe UI',sans-serif;padding:40px;margin:0;}
+    h1{font-size:22px;font-weight:800;margin-bottom:4px}
+    .sub{color:#6B7FA0;font-size:12px;margin-bottom:24px}
+    .score-box{border-radius:12px;padding:20px;margin-bottom:24px;border:1px solid ${colNivel}40;background:${colNivel}15;}
+    .dims-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px;}
+    .section-title{font-size:14px;font-weight:700;margin:20px 0 12px;color:#A78BFA;}
+    .conclusion{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);border-radius:12px;padding:20px;margin-bottom:20px;}
+    .footer{margin-top:32px;text-align:center;font-size:10px;color:#6B7FA0;letter-spacing:1px}
+    @media print{body{padding:20px}}
+  </style></head><body>
+    <h1>🧠 Análisis Consolidado de Riesgo — ${(ac.entidad||globalData.empresa).toUpperCase()}</h1>
+    <div class="sub">MICROHELP · SBS Escucha Social · ${ac.periodo || ''} · Generado: ${new Date().toLocaleString('es-PE')}</div>
+    <div class="score-box">
+      <div style="font-size:28px;font-weight:800;color:${colNivel};">⚡ RIESGO ${nivel}</div>
+      <div style="margin-top:8px;font-size:13px;color:#B0BCCF;">${ac.total_noticias} noticias · Score promedio: ${ac.score_riesgo_promedio} · Score máximo: ${ac.score_riesgo_maximo}</div>
+    </div>
+    <div class="section-title">📊 Dimensiones de Riesgo</div>
+    <div class="dims-grid">${dimsHTML}</div>
+    <div class="section-title">🔍 Patrones Detectados</div>
+    ${patronesHTML}
+    <div class="conclusion">
+      <div class="section-title" style="margin-top:0;">📋 Conclusión Ejecutiva</div>
+      <div style="font-size:13px;color:#E8EDF5;line-height:1.8;">${ac.conclusion_ejecutiva}</div>
+      <div style="margin-top:16px;"><div class="section-title" style="font-size:12px;">🎯 Recomendaciones</div>${recsHTML}</div>
+    </div>
+    <div class="footer">MICROHELP © 2026 · SBS ESCUCHA SOCIAL · ANÁLISIS CONSOLIDADO GENERADO CON CLAUDE</div>
+  </body></html>`;
+
+  const win = window.open('', '_blank');
+  win.document.write(html);
+  win.document.close();
+  setTimeout(() => win.print(), 500);
+}
+
 /* ── COMPARAR ── */
 async function comparar(){
   const eA=document.getElementById('cmpEmpresaA').value;
@@ -690,7 +1132,6 @@ function renderComparar(dA,dB){
   document.getElementById('compare-results').innerHTML=html;
   document.getElementById('compare-results').style.display='block';
 
-  // Gráfico comparativo
   setTimeout(()=>{
     const labels=['Score Riesgo','Menciones','Negativas','Positivas'];
     const dataA=[dA.score_riesgo_promedio,dA.total_menciones,dA.noticias_negativas,dA.noticias_positivas];
@@ -874,7 +1315,6 @@ function toggleExpand(idx){
 async function generarResumen(idx){
   const el=document.getElementById(`resume-${idx}`);
   el.innerHTML='<div class="epanel-loading"><div class="mini-spin"></div> Generando con Claude...</div>';
-  // Buscar la noticia en globalData o en comparación
   const idxNum=parseInt(idx.replace(/\D/g,''));
   const n=globalData?globalData.noticias[idxNum]:null;
   if(!n){el.textContent='Noticia no disponible.';return;}
