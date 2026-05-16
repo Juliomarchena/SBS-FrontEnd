@@ -732,72 +732,6 @@ function renderResults(d,prefix='',suffix=''){
 /* MÓDULO DE ANÁLISIS CONSOLIDADO                                 */
 /* ═══════════════════════════════════════════════════════════════ */
 
-const SYSTEM_PROMPT_CONSOLIDADO = `Eres un analista sénior de riesgo reputacional del sistema financiero peruano.
-Tu rol es analizar el CONJUNTO de noticias ya clasificadas sobre una entidad financiera y generar un informe consolidado de riesgo.
-
-CONTEXTO:
-- Trabajas para la Superintendencia de Banca, Seguros y AFP del Perú (SBS)
-- Las noticias ya fueron clasificadas individualmente con sentimiento y score de riesgo
-- Tu trabajo es encontrar PATRONES, no repetir el análisis individual
-
-INSTRUCCIONES DE ANÁLISIS:
-
-1. PATRONES: Identifica temas recurrentes. ¿Se repiten sanciones? ¿Hay escalamiento de un problema? ¿Hay correlaciones entre eventos?
-   Ejemplo: múltiples sanciones de Indecopi + salida de directivos = señal compuesta de crisis de gobernanza.
-
-2. DIMENSIONES DE RIESGO: Agrupa hallazgos en estas dimensiones:
-   - REGULATORIO: Sanciones, multas, incumplimientos normativos
-   - GOBERNANZA: Cambios directivos, estructura organizacional
-   - FINANCIERO: Indicadores económicos, solidez, liquidez
-   - REPUTACIONAL: Percepción pública, imagen de marca
-   - OPERATIVO: Fallas en servicio, quejas sistemáticas
-
-3. NIVEL DE RIESGO POR DIMENSIÓN:
-   - CRITICO: Múltiples eventos negativos graves, patrón claro
-   - ALTO: Eventos negativos significativos con potencial de escalamiento
-   - MEDIO: Señales de alerta que requieren monitoreo
-   - BAJO: Sin indicadores negativos relevantes
-   - POSITIVO: Indicadores favorables que fortalecen la posición
-
-4. CORRELACIONES: Busca conexiones entre noticias que no son evidentes individualmente.
-
-FORMATO DE RESPUESTA (responde SOLO en JSON válido, sin markdown, sin backticks, sin texto adicional):
-{
-  "entidad": "nombre",
-  "periodo": "descripción del periodo",
-  "total_noticias": número,
-  "distribucion_sentimiento": {"positivo": n, "negativo": n, "neutral": n},
-  "score_riesgo_promedio": número,
-  "score_riesgo_maximo": número,
-  "dimensiones": [
-    {"nombre": "REGULATORIO|GOBERNANZA|FINANCIERO|REPUTACIONAL|OPERATIVO", "nivel": "CRITICO|ALTO|MEDIO|BAJO|POSITIVO", "hallazgos": "texto", "noticias_relacionadas": [índices]}
-  ],
-  "patrones_detectados": [
-    {"patron": "texto", "evidencia": "texto", "implicancia": "texto"}
-  ],
-  "correlaciones": [
-    {"eventos": "texto", "interpretacion": "texto"}
-  ],
-  "conclusion_ejecutiva": "párrafo de 3-5 líneas",
-  "nivel_riesgo_global": "CRITICO|ALTO|MEDIO|BAJO",
-  "recomendaciones": ["acción 1", "acción 2", "acción 3"]
-}
-
-REGLAS:
-- Responde SOLO con el JSON, sin texto adicional
-- Sé específico y basado en evidencia
-- Si no hay suficientes noticias para un patrón, indica "Datos insuficientes para detectar patrones"
-- El nivel global debe reflejar la dimensión más crítica
-- Las recomendaciones deben ser accionables para un supervisor SBS
-- Solo incluye dimensiones donde haya evidencia (no inventes dimensiones vacías)`;
-
-function buildUserPrompt(entidad, noticias, diasVentana) {
-  const resumen = noticias.map((n, i) =>
-    `[${i+1}] Fecha: ${n.fecha} | Fuente: ${n.fuente} | Categoría: ${n.categoria} | Sentimiento: ${n.sentimiento} | Score: ${n.score_riesgo} | Título: ${n.titulo} | Razón: ${n.razon_claude || 'N/A'}`
-  ).join('\n');
-  return `Analiza las siguientes ${noticias.length} noticias sobre "${entidad}" de los últimos ${diasVentana} días:\n\n${resumen}`;
-}
-
 function mostrarBotonConsolidado(data) {
   const container = document.getElementById('ac-container');
   const dias = parseInt(document.getElementById('diasSlider').value) || parseInt(document.getElementById('diasSlider2').value) || 30;
@@ -839,27 +773,32 @@ async function ejecutarAnalisisConsolidado() {
     </div>`;
 
   try {
-    const userPrompt = buildUserPrompt(globalData.empresa, globalData.noticias, dias);
+    // Preparar noticias resumidas para enviar al backend
+    const noticiasResumen = globalData.noticias.map(n => ({
+      titulo: n.titulo,
+      fuente: n.fuente,
+      fecha: n.fecha,
+      categoria: n.categoria,
+      sentimiento: n.sentimiento,
+      score_riesgo: n.score_riesgo,
+      razon_claude: n.razon_claude || ''
+    }));
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch(`${API}/analisis-consolidado`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'anthropic-version': '2023-06-01'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 4096,
-        system: SYSTEM_PROMPT_CONSOLIDADO,
-        messages: [{ role: 'user', content: userPrompt }]
+        empresa: globalData.empresa,
+        dias_ventana: dias,
+        noticias: noticiasResumen
       })
     });
 
-    if (!response.ok) throw new Error(`API Error ${response.status}`);
-    const data = await response.json();
-    const textoRespuesta = data.content[0].text;
-    const jsonLimpio = textoRespuesta.replace(/```json/g, '').replace(/```/g, '').trim();
-    analisisConsolidadoData = JSON.parse(jsonLimpio);
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData.detail || `Error ${response.status}`);
+    }
+    analisisConsolidadoData = await response.json();
     renderAnalisisConsolidado(analisisConsolidadoData);
 
   } catch (error) {
